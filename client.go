@@ -22,10 +22,10 @@ const (
 )
 
 var (
-	//Poloniex says we are allowed 6 req/s
-	//but this is not true if you don't want to see
-	//'nonce must be greater than' error 3 req/s is the best option.
-	throttle = time.Tick(time.Second / 3)
+//Poloniex says we are allowed 6 req/s
+//but this is not true if you don't want to see
+//'nonce must be greater than' error 3 req/s is the best option.
+//throttle = time.Tick(time.Second / 3)
 )
 
 type Poloniex struct {
@@ -57,7 +57,7 @@ func NewClient(key, secret string, args ...bool) (client *Poloniex, err error) {
 //Public Api Request
 func (p *Poloniex) publicRequest(action string, respch chan<- []byte, errch chan<- error) {
 
-	<-throttle
+	//<-throttle
 
 	defer close(respch)
 	defer close(errch)
@@ -130,7 +130,7 @@ func checkServerError(response []byte) error {
 func (p *Poloniex) tradingRequest(action string, parameters map[string]string,
 	respch chan<- []byte, errch chan<- error) {
 
-	<-throttle
+	//<-throttle
 
 	defer close(respch)
 	defer close(errch)
